@@ -31,8 +31,9 @@ Route::post('/auth/refresh', [AuthController::class, 'refresh']);
 Route::post('/user', [AuthController::class, 'create']);
 
 Route::put('/user', [UserController::class, 'update']);
-/*
+
 Route::post('/user/avatar', [UserController::class, 'updateAvatar']);
+/*
 Route::post('/user/cover', [UserController::class, 'updateCover']);
 
 Route::get('/feed', [FeedController::class, 'read']);
