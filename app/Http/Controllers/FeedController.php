@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Post;
+use App\PostLike;
+use App\PostComment;
+use App\UserRelation;
+use App\User;
 use Image;
 
 class FeedController extends Controller
@@ -85,6 +89,23 @@ class FeedController extends Controller
             $array['error'] = 'Dados não enviados';
             return $array;
         }
+
+        return $array;
+    }
+
+    public function read(Request $request)
+    {
+        // GET api/feed (page)
+        $array = ['error' => ''];
+
+        $page = intval($request->input('page'));
+
+        // 1. Pegar a lista de usuários que EU sigo (incluindo EU mesmo)
+
+
+        // 2. Pegar os posts dessa galera ORDENADO PELA DATA
+
+        // 3. Preencher as informações adicionar
 
         return $array;
     }
