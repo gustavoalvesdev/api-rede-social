@@ -37,10 +37,10 @@ Route::post('/user/avatar', [UserController::class, 'updateAvatar']);
 Route::post('/user/cover', [UserController::class, 'updateCover']);
 
 Route::get('/feed', [FeedController::class, 'read']);
-/*
+
 Route::get('/user/feed', [FeedController::class, 'userFeed']);
 Route::get('/user/{id}/feed', [FeedController::class, 'userFeed']);
-
+/*
 Route::get('/user', [UserController::class, 'read']);
 Route::get('/user/{id}', [UserController::class, 'read']);
 */
