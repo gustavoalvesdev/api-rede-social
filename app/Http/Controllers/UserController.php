@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\UserRelation;
+use App\Post;
 use Image;
 
 class UserController extends Controller
@@ -174,6 +176,45 @@ class UserController extends Controller
         } else {
             $array['error'] = 'Arquivo não enviado!';
         }
+
+        return $array;
+    }
+
+    public function read($id = false) {
+        $array = ['error' => ''];
+
+        if ($id) {
+            $info = User::find($id);
+            if (!$info) {
+                $array['error'] = 'Usuário inexistente';
+                return $array;
+            }
+        } else {
+            $info = $this->loggedUser;
+        }
+
+        $info['avatar'] = url('media/avatars/' . $info['avatar']);
+        $info['cover'] = url('media/covers/' . $info['cover']);
+
+        $info['me'] = $info['id'] == $this->loggedUser['id'];
+
+        $dateFrom = new \DateTime($info['birthdate']);
+        $dateTo = new \DateTime('today');
+        $info['age'] = $dateFrom->diff($dateTo)->y;
+
+        $info['followers'] = UserRelation::where('user_to', $info['id'])->count();
+        $info['following'] = UserRelation::where('user_from', $info['id'])->count();
+
+        $info['photoCount'] = Post::where('id_user', $info['id'])
+        ->where('type', 'photo')
+        ->count();
+
+        $hasRelation = UserRelation::where('user_from', $this->loggedUser['id'])
+        ->where('user_to', $info['id'])
+        ->count();
+        $info['isFollowing'] = $hasRelation > 0;
+
+        $array['data'] = $info;
 
         return $array;
     }
