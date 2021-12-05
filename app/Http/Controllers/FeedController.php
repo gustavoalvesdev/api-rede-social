@@ -27,7 +27,7 @@ class FeedController extends Controller
     public function create(Request $request)
     {
         // POST api/feed (type=text/photo, body, photo)
-        $array = ['erro' => ''];
+        $array = ['error' => ''];
         $allowedTypes = ['image/jpg', 'image/jpeg', 'image/png'];
 
         $type = $request->input('type');
